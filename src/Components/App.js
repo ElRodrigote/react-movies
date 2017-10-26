@@ -27,17 +27,28 @@ class App extends Component {
 
 	render(){
 		let movies = this.state.movies;
+		let score = Math.round(this.state.movies.score * 10);
+		let stars = (arg) => new Array(arg);
 		return (
 			<div className="movie-list">
 			{
 				movies.map(movie => {
 					return(
-						<ul key={movie.id} className="movie-info">
-							<li>{movie.title}</li>
-							<li>{movie.year}</li>
-							<li>{movie.synopsis}</li>
-							<li><img src={movie['cover-url']} /></li>
-						</ul>
+						<div key={movie.id} className="movie-info">
+							<span>{movie.id}.</span>
+							<span>{movie.title}</span>
+							<span>({movie.year})</span>
+							{stars({score})
+								.map(star => {
+									return(
+										<i key={movie.id} className="fa fa-star fa-fw"></i>
+									);
+								})
+							}
+							
+							<div>{movie.synopsis}</div>
+							<div><img src={movie['cover-url']} /></div>
+						</div>
 					);
 				})
 			}
